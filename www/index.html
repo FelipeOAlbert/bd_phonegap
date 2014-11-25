@@ -24,6 +24,7 @@
         <script type="text/javascript">
             app.initialize();
             
+            alert('acabou a inicialização!');
             
             db = window.sqlitePlugin.openDatabase({name: "DB"});
             db.transaction(function(tx) {
