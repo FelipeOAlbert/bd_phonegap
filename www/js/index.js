@@ -31,23 +31,23 @@ var app = {
         
         alert('uhu');
         
-        db = window.sqlitePlugin.openDatabase({name: "banco_teste"});
-        db.transaction(function(tx) {
-            
-            // Cria a Tabela "tabela_testes"
-            tx.executeSql('CREATE TABLE IF NOT EXISTS tabela_teste (id integer primary key, titulo text)');
-            
-            // Adiciona um elemento a tabela
-            tx.executeSql("INSERT INTO tabela_teste (titulo) VALUES (?)", ["Meu primeiro post."]);
-            
-            // Faz uma busca na tabela
-            tx.executeSql("SELECT * FROM tabela_teste;", [], function(tx, res) {
-                alert("Quantidade Resultados: " + res.rows.length);
-                for (var i = 0;i<res.rows.length;i++){
-                    alert("Linha "+i+": "+res.rows.item(i).titulo);
-                }
-            });
-        });
+        //db = window.sqlitePlugin.openDatabase({name: "banco_teste"});
+        //db.transaction(function(tx) {
+        //    
+        //    // Cria a Tabela "tabela_testes"
+        //    tx.executeSql('CREATE TABLE IF NOT EXISTS tabela_teste (id integer primary key, titulo text)');
+        //    
+        //    // Adiciona um elemento a tabela
+        //    tx.executeSql("INSERT INTO tabela_teste (titulo) VALUES (?)", ["Meu primeiro post."]);
+        //    
+        //    // Faz uma busca na tabela
+        //    tx.executeSql("SELECT * FROM tabela_teste;", [], function(tx, res) {
+        //        alert("Quantidade Resultados: " + res.rows.length);
+        //        for (var i = 0;i<res.rows.length;i++){
+        //            alert("Linha "+i+": "+res.rows.item(i).titulo);
+        //        }
+        //    });
+        //});
         
         
     },
