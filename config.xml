@@ -1,8 +1,8 @@
 <?xml version='1.1.0' encoding='utf-8'?>
-<widget id="br.com.meucarroturbo.app" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Meu Carro Turbo</name>
+<widget id="br.com.testebd.app" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Teste BD</name>
     <description>
-        Primeira versão para listagem dos anuncios
+        Protótipo Banco de dados
     </description>
     <author email="freedfelipe@gmail.com" href="http://meucarroturbo.com.br">
         Felipe Albert
