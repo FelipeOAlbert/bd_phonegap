@@ -16,19 +16,31 @@
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
+                
+                <span id="nameList"></span>
+                
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         
         <script type="text/javascript">
             //app.initialize();
+            
+            $(".received").hide();
+            $(".listening").show();
             
             // Wait for Cordova to load
             document.addEventListener("deviceready", onDeviceReady, false);
             
             // Cordova is ready
             function onDeviceReady() {
+                
+                $(".listening").hide();
+                $(".received").show();
+                
+                
               var db = window.sqlitePlugin.openDatabase({name: "teste_phonegap.db"});
             
               db.transaction(function(tx) {
@@ -44,17 +56,26 @@
                 
                 // lendo os dados
                 tx.executeSql("SELECT * FROM test_table;", [], function(tx, res) {
-                    alert("Quantidade Resultados: " + res.rows.length);
-                    for (var i = 0;i<res.rows.length;i++){
-                        alert("Linha "+i+": "+res.rows.item(i).nome);
-                    }
-                  });
+                    listData(res);
+                });
                 
                 }, function(e) {
                     alert("ERROR: " + e.message);
                 });
             }
-         
+            
+            function listData(result) {
+                //code
+                
+                if(result.rows.length > 0){
+                    for (var i = 0; i < result.rows.length; i++) {
+                        var row = result.rows.item(i);
+                        $('#nameList').append('<br>' + row.nome);
+                    }
+                }else{
+                    $('#nameList').html('Sem dados para exibir');
+                }
+            }
         </script>
     </body>
 </html>
