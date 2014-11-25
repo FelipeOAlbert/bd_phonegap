@@ -14,11 +14,12 @@
         <div class="app">
             <h1>PhoneGap</h1>
             <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <p id="listening" class="event listening">Connecting to Device</p>
+                <p id="received" class="event received">Device is Ready</p>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <!--<script type="text/javascript" src="js/index.js"></script>-->
         
         <script type="text/javascript">
@@ -40,13 +41,40 @@
                 }
             }
             
-            function init() {
-                app.openDb();
-                
-                alert('banco pronto');
+            app.createTable = function() {
+                app.db.transaction(function(tx) {
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS MyTable (id INTEGER PRIMARY KEY ASC, text_sample TEXT, date_sample DATETIME)", []);
+                });
             }
             
-         
+            app.insertRecord = function(t) {
+                app.db.transaction(function(tx) {
+                    var cDate = new Date();
+                    tx.executeSql("INSERT INTO MyTable(text_sample, date_sample) VALUES (?,?)",
+                                  [t, cDate],
+                                  app.onSuccess,
+                                  app.onError);
+                });
+            }
+            
+            app.onSuccess = function(tx, r) {
+                alert("Your SQLite query was successful!");
+            }
+            
+            app.onError = function(tx, e) {
+                alert("SQLite Error: " + e.message);
+            }
+            
+            function init() {
+                
+                $('#listening').hide();
+                
+                app.openDb();
+                app.createTable();
+                
+                //alert('banco pronto');
+            }
+            
         </script>
     </body>
 </html>
