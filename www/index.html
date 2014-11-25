@@ -19,41 +19,31 @@
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <!--<script type="text/javascript" src="js/index.js"></script>-->
         
         <script type="text/javascript">
             //app.initialize();
             
-            alert('acabou a inicialização!');
+            //alert('acabou a inicialização!');
             
-            document.addEventListener("deviceready", onDeviceReady, false);
+            document.addEventListener("deviceready", init, false);
             
-            function onDeviceReady() {
+            var app = {};
+            app.db = null;
+            
+            app.openDb = function() {
+                if (window.sqlitePlugin !== undefined) {
+                    app.db = window.sqlitePlugin.openDatabase("My Database");
+                } else {
+                    // For debugging in simulator fallback to native SQL Lite
+                    app.db = window.openDatabase("My Database", "1.0", "Cordova Demo", 200000);
+                }
+            }
+            
+            function init() {
+                app.openDb();
                 
-                alert('ondeviceready');
-                
-                var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
-                
-                console.log(db);
-                
-              
-                db.transaction(function(tx) {
-                  tx.executeSql('DROP TABLE IF EXISTS test_table');
-                  tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-              
-                  tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-                    console.log("insertId: " + res.insertId + " -- probably 1");
-                    console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
-              
-                    tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-                      console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-                      console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-                    });
-                    
-                    }, function(e) {
-                        console.log("ERROR: " + e.message);
-                    });
-                });
+                alert('banco pronto');
             }
             
          
