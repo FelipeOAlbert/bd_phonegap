@@ -40,12 +40,12 @@
                 $(".received").show();
                 
                 
-              var db = window.sqlitePlugin.openDatabase({name: "teste_phonegap.db"});
+                var db = window.sqlitePlugin.openDatabase({name: "teste_phonegap.db"});
             
                 db.transaction(function(tx) {
                     tx.executeSql('DROP TABLE IF EXISTS test_table');
                     tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, nome text, sexo text)');
-                
+                    
                     tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Felipe", "Masculino"]);
                     tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Rubia", "Feminino"]);
                     tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Carlos", "Masculino"]);
@@ -75,6 +75,11 @@
                     $('#nameList').html('Sem dados para exibir');
                 }
             }
+            
+            $(window).load(function() {
+                onDeviceReady();
+            });
+            
         </script>
     </body>
 </html>
