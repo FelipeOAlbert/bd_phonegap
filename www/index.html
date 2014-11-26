@@ -40,17 +40,18 @@
                 $(".received").show();
                 
                 
-                var db = window.sqlitePlugin.openDatabase({name: "test_table.db"});
+                var db = window.sqlitePlugin.openDatabase({name: "teste_phonegap.db"});
             
                 db.transaction(function(tx) {
+                    tx.executeSql('DROP TABLE IF EXISTS test_table');
                     tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, nome text, sexo text)');
-                    
-                    //tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Felipe", "Masculino"]);
-                    //tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Rubia", "Feminino"]);
-                    //tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Carlos", "Masculino"]);
-                    //tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Marley", "Masculino"]);
-                    //tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Nilza", "Feminino"]);
-                    //tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Denise", "Feminino"]);
+                
+                    tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Felipe", "Masculino"]);
+                    tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Rubia", "Feminino"]);
+                    tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Carlos", "Masculino"]);
+                    tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Marley", "Masculino"]);
+                    tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Nilza", "Feminino"]);
+                    tx.executeSql("INSERT INTO test_table (nome, sexo) VALUES (?,?)", ["Denise", "Feminino"]);
                 
                     // lendo os dados
                     tx.executeSql("SELECT * FROM test_table;", [], function(tx, res) {
